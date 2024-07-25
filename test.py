@@ -1,4 +1,3 @@
-print("This is a test message\n"
-      "to see if git is installed.")
-
-print(1 + 2 + 3)
+val1 = int(input("Enter a number: "))
+val2 = int(input("Enter another number: "))
+print(f'Answer: {val1 + val2}')
