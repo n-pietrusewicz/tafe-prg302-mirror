@@ -1,1 +1,2 @@
-# tafe-prg302
+# TAFE Python Programming Unit
+Working weeks are in folders...
