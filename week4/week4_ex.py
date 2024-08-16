@@ -1,7 +1,7 @@
 def create_contact():
     print("Creating a contact...")
     contact_file = open("contacts-week4.txt", 'a')
-    new_contact_name = input("Enter the new contact's full name: ").title()
+    new_contact_name = input("\nEnter the new contact's full name: ").title()
     new_contact_phone = input("Enter the new contact's phone number: ")
     new_contact_email = input("Enter the new contact's email: ").lower()
     contact_file.write(f"{new_contact_name}\t{new_contact_phone}"
@@ -12,7 +12,7 @@ def create_contact():
 
 
 def search_by_name():
-    print("Searching by name\n")
+    print("\nSearching by name")
     search_val = input("Q: ").title()
 
     with open('contacts-week4.txt', 'r') as contacts_file:
@@ -42,7 +42,7 @@ def search_by_phone():
 
 
 def search_by_email():
-    print("Searching by email\n")
+    print("\nSearching by email")
     search_val = input("Q: ").lower()
     with open('contacts-week4.txt', 'r') as contacts_file:
         contact_found = False
