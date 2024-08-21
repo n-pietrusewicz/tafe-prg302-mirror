@@ -1,0 +1,8 @@
++--------+---------------------------------------+
+| Option |              Function                 |
++--------+---------------------------------------+
+| c      | Runs the user creation function.      |
+| v      | Views all currently registered users. |
+| h      | Prints this menu.                     |
+| e      | Exits to shell prompt.                |
++--------+---------------------------------------+
