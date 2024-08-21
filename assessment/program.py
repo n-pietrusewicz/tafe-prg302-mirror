@@ -1,3 +1,5 @@
+from time import sleep
+
 def create_account():
     print("Create account function")
     user_option = input(r"Enter the username you would like to use: ").lower()
@@ -45,7 +47,8 @@ def user_login():
                             user_option = input("Login successful")
 
                         elif count == 3:
-                            print("Authentication failed. Please login and try again.")
+                            sleep(2)
+                            print("Sorry, please try again.\n")
                             return
             
                     # if user_option in ('m', 'menu'):
