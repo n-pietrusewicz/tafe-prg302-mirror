@@ -18,50 +18,47 @@ def create_account():
 
                 
                  
-    
-
 def user_login():
     print("Login function\n")
-    user_option = input("Enter your username.\nType 'c' to cancel: ").lower()
+    user_option = input("Enter your username: ").lower()
     with open("assets/accounts.txt", "r") as user_accounts:
-        # user_accounts.seek(0)
         for accounts in user_accounts:
             user, password = accounts.strip().split(",")
 
-            if user != user_option:
-                print("Incorrect username.\n")
-                return
-            
-            elif user == user_option:
+            if user == user_option:
                 print("Username OK")
                 user_password = input(f"Hello, {user_option} please enter your password: ")
-                
-                
-                if password != user_password:
+
+                if user_password == password:
+                    user_option = input("Login successful")
+                    
+
+                elif password != user_password:
                     print("Incorrect password.")
+                    
                     count = 0
-                   
                     while count < 3:
                         user_password = input(f"Password: ")
                         count = count + 1
 
-                        if count == 3:
+                        if user_password == password:
+                            user_option = input("Login successful")
+
+                        elif count == 3:
                             print("Authentication failed. Please login and try again.")
                             return
-                        
-                elif password == user_password:
-                    print("Login success.")
-                    user_option = input("(e)xit or (m)enu.\n?: ").lower()
-
-                    if user_option in ('m', 'menu'):
-                        print("Exiting...\n ")
-                        return
+            
+                    # if user_option in ('m', 'menu'):
+                    #     print("Exiting...\n ")
+                    #     return
                     
-                    elif user_option in ('e', 'exit'):
-                        exit()
+                    # elif user_option in ('e', 'exit'):
+                    #     exit()
                     
-                    else:
-                        print(f"Invalid option: {user_option}\n")
+                    # else:
+                    #     print(f"Invalid option: {user_option}\n")
+                    #     return
+                
 
 
 
