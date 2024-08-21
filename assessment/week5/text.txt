@@ -1,2 +1,0 @@
-This is a text file 
-Week 5 Python scripting 
