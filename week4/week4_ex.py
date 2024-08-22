@@ -28,7 +28,7 @@ def search_by_name():
 
 def search_by_phone():
     print("\nSearch by phone")
-    search_val = str(input("Q: "))
+    search_val = input("Q: ")
 
     with open('contacts-week4.txt', 'r') as contacts_file:
         contact_found = False

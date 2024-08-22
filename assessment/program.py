@@ -3,7 +3,7 @@ from time import sleep
 
 def create_account():
     print("Create account function")
-    user_option = input(r"Enter the username you would like to use: ").lower()
+    user_option = input("Enter the username you would like to use: ").lower()
     with open("assets/accounts.txt", "a+") as user_accounts:
         user_accounts.seek(0)
         for accounts in user_accounts:
@@ -28,12 +28,11 @@ def user_login():
 
             if user == user_option:
                 print("Username OK")
-                user_password = input(f"Hello, {user_option} please enter your password: ")
+                user_password = input(f"Hello {user_option}, please enter your password: ")
 
                 if user_password == password:
                     user_option = input("Login successful")
                     
-
                 elif password != user_password:
                     print("Incorrect password.")
                     
@@ -49,7 +48,6 @@ def user_login():
                             sleep(2)
                             print("Sorry, please try again.\n")
                             return
-
                 
 def view_accounts():
     with open("assets/accounts.txt", 'r') as user_accounts:
