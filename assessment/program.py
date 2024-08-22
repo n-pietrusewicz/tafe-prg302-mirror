@@ -1,4 +1,5 @@
 from time import sleep
+# from random import choice
 
 def create_account():
     print("Create account function")
@@ -12,12 +13,10 @@ def create_account():
                 print(f"Username {user_option} taken. Please try again.")
                 return
             
-            # if user != user_option:
         print(f"Username {user_option} available.")
         user_password = input("Enter a password: ")
         print("Writing...")
         user_accounts.write(f"{user_option},{user_password}\n")
-
                 
                  
 def user_login():
@@ -41,7 +40,7 @@ def user_login():
                     count = 0
                     while count < 3:
                         user_password = input(f"Password: ")
-                        count = count + 1
+                        count += 1
 
                         if user_password == password:
                             user_option = input("Login successful")
@@ -50,21 +49,8 @@ def user_login():
                             sleep(2)
                             print("Sorry, please try again.\n")
                             return
-            
-                    # if user_option in ('m', 'menu'):
-                    #     print("Exiting...\n ")
-                    #     return
-                    
-                    # elif user_option in ('e', 'exit'):
-                    #     exit()
-                    
-                    # else:
-                    #     print(f"Invalid option: {user_option}\n")
-                    #     return
+
                 
-
-
-
 def view_accounts():
     with open("assets/accounts.txt", 'r') as user_accounts:
         for accounts in user_accounts:

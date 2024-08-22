@@ -34,7 +34,8 @@ def search_by_phone():
         contact_found = False
         for contacts in contacts_file:
             name, phone, email = contacts.split("\t")
-            if phone == search_val:
+            if phone.replace(" ", "").replace("-","") == \
+                search_val.replace(" ", "").replace("-", ""):
                 print(f"A: {name} {phone} {email}".strip())
                 contact_found = True
         if not contact_found:
@@ -83,16 +84,11 @@ def view_contacts():
         print()
 
 
-menuChoice = "*"
+menuChoice = ""
 while menuChoice != "e":
     print("==========================\n"
           "= Nick's Contact Program =\n"
           "==========================\n")
-
-    # print("1) Create contact.")
-    # print("2) Search contacts.")
-    # print("3) View all contacts.")
-    # print("4) Exit.")
 
     menuChoice = input("Enter an option:\n"
                        "(c)reate contact, (s)earch, (v)iew or (e)xit: ").lower()
