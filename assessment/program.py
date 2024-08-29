@@ -48,7 +48,9 @@ def user_login():
                             sleep(2)
                             print("Sorry, please try again.\n")
                             return
-                
+        print(f"User {user_option} not found.")
+
+
 def view_accounts():
     with open("assets/accounts.txt", 'r') as user_accounts:
         for accounts in user_accounts:
