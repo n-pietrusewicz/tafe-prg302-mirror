@@ -6,7 +6,7 @@ count = 0
 marks_list = []
 while count < 5:
     try:                                            # While the variable 'count' is less than '5', then try the following procedure:
-        mark = int(input("Enter a mark (0-100): ")) # Ask the user for their input, store it in the variable 'mark' as an integer.
+        mark = int(input("Enter a mark: ")) # Ask the user for their input, store it in the variable 'mark' as an integer.
         if 0 <= mark <= 100:                        # If 0 is <=  mark AND <= 100 do:
             marks_list.append(mark)                 
             count += 1
