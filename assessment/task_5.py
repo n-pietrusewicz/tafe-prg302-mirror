@@ -16,11 +16,11 @@ while count < 5:
         print("Oops! Please enter a whole number.")
 print("Done.")
 
-print("Summary:")
+print("Summary:\n")
 print(f"Marks entered: {len(marks_list)}\n")       # Take the length of the list marks_list and print it.
 
 # Sum of marks
-print(f"\nSum: {sum(marks_list)}")                 # Add the contents of the list.
+print(f"Sum: {sum(marks_list)}")                 # Add the contents of the list.
 
 # Average of marks
 average = sum(marks_list) / len(marks_list)
