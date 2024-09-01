@@ -3,19 +3,19 @@
 # Login Script
 
 def create_account():
-    print("Create account")
+    print("Create account\n")
 
 
 def user_login():
-    print("Login")
+    print("Login\n")
 
 
 def view_accounts():
-    print("View accounts")
+    print("View accounts\n")
 
 
 def user_help():
-    print("Help")
+    print("Help\n")
 
 
 option = ""
