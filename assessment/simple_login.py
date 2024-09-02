@@ -1,9 +1,24 @@
 # Nicholas Piet - 2024
 # TAFE - Unit ICTPRG302 - Task 2
 # Login Script
+from string import ascii_letters, digits, punctuation
+from time import sleep
+from passwd_module import password_gen
 
 def create_account():
-    print("Create account\n")
+    username_choice = input("Enter the username you would like to use: ")
+    with open("accounts.txt", 'a+') as accounts:
+        accounts.seek(0)
+        
+        for user_accounts in accounts:
+            username, _ = user_accounts.strip().split(",")
+            if username_choice == username:
+                print("Sorry, username not available. Please try again.\n")
+                sleep(2)
+                return
+            
+        print("Username available!\n")
+        password_gen()
 
 
 def user_login():

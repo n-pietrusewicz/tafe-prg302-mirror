@@ -4,7 +4,7 @@ from time import sleep
 def create_account():
     print("Create account function")
     user_option = input("Enter the username you would like to use: ").lower()
-    with open("assets/accounts.txt", "a+") as user_accounts:
+    with open("accounts.txt", "a+") as user_accounts:
         user_accounts.seek(0)
         for accounts in user_accounts:
             user, password = accounts.strip().split(",")
