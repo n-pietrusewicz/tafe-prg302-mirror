@@ -1,9 +1,12 @@
 # Nicholas Piet - 2024
 # TAFE - Unit ICTPRG302 - Task 2
 # Login Script
+from os import system, name
 from string import punctuation
 from time import sleep
 import re
+
+system('cls' if name == 'nt' else 'clear')
 
 escaped_symbols = re.escape(punctuation)
 
@@ -24,23 +27,27 @@ def create_account():
                 return
             
         print("Username available!\n")
-        print("Please enter a password."
+        print("Please enter a password. "
               "Password requirements: 8 characters minimum, at least one symbol, number and uppercase letter.")
-        password_choice = input("Password: ")
-        if len(password_choice) < 8:
-            print("Your password must be longer than 8 characters. Please try again.\n")
-        elif not PATTERN_CHARS.search(password_choice):
-            print("Your password does not contain any uppercase characters. Please try again.")
-        # elif not Pattern(PATTERN_NUM):
-        #     print("Your password does not contain any numbers. Please try again.")
-        elif not PATTERN_SYM.search(password_choice):
-            print("Your password does not contain any special characters. Please try again.")
-
-        else:
-            print("Password is OK")
-            return
         
-        
+        def password_validation():
+            while True:
+                password_choice = input("Password: ")
+                if len(password_choice) < 8:
+                    print("Your password must be longer than 8 characters. Please try again.\n")
+                elif not PATTERN_CHARS.search(password_choice):
+                    print("Your password does not contain any uppercase characters. Please try again.")
+                elif not PATTERN_NUM.search(password_choice):
+                    print("Your password does not contain any numbers. Please try again.")
+                elif not PATTERN_SYM.search(password_choice):
+                    print("Your password does not contain any special characters. Please try again.")
+                
+                else:
+                    return password_choice
+                
+        password_choice = password_validation()
+        print("Writing...")
+        accounts.write(f"{username_choice},{password_choice}\n")
 
 
 def user_login():
