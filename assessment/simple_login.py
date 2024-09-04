@@ -6,6 +6,7 @@ from string import punctuation
 from time import sleep
 import re
 
+# Clears the terminal
 system('cls' if name == 'nt' else 'clear')
 
 escaped_symbols = re.escape(punctuation)
@@ -86,3 +87,4 @@ while option != "e":
     else:
         print(f"Invalid option: '{option}'")
         print("Type 'help' for more information.\n")
+ 
