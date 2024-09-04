@@ -1,9 +1,15 @@
 # Nicholas Piet - 2024
 # TAFE - Unit ICTPRG302 - Task 2
 # Login Script
-from string import ascii_letters, digits, punctuation
+from string import punctuation
 from time import sleep
-# import re
+import re
+
+escaped_symbols = re.escape(punctuation)
+
+PATTERN_CHARS = re.compile(r'[A-Z]')
+PATTERN_NUM = re.compile(r'\d')
+PATTERN_SYM = re.compile(fr'[{escaped_symbols}]')
 
 def create_account():
     username_choice = input("Enter the username you would like to use: ")
@@ -21,8 +27,18 @@ def create_account():
         print("Please enter a password."
               "Password requirements: 8 characters minimum, at least one symbol, number and uppercase letter.")
         password_choice = input("Password: ")
-        # write function
-        # re.search... [expression], variable...
+        if len(password_choice) < 8:
+            print("Your password must be longer than 8 characters. Please try again.\n")
+        elif not PATTERN_CHARS.search(password_choice):
+            print("Your password does not contain any uppercase characters. Please try again.")
+        # elif not Pattern(PATTERN_NUM):
+        #     print("Your password does not contain any numbers. Please try again.")
+        elif not PATTERN_SYM.search(password_choice):
+            print("Your password does not contain any special characters. Please try again.")
+
+        else:
+            print("Password is OK")
+            return
         
         
 
