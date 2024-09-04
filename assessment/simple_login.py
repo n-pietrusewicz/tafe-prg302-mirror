@@ -3,7 +3,7 @@
 # Login Script
 from string import ascii_letters, digits, punctuation
 from time import sleep
-from passwd_module import password_gen
+# import re
 
 def create_account():
     username_choice = input("Enter the username you would like to use: ")
@@ -18,7 +18,13 @@ def create_account():
                 return
             
         print("Username available!\n")
-        password_gen()
+        print("Please enter a password."
+              "Password requirements: 8 characters minimum, at least one symbol, number and uppercase letter.")
+        password_choice = input("Password: ")
+        # write function
+        # re.search... [expression], variable...
+        
+        
 
 
 def user_login():
