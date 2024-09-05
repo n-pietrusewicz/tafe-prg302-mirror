@@ -84,8 +84,8 @@ def user_login():
         for accounts in user_accounts:
             user, password = accounts.strip().split(",")
             if user == user_option:
-                print("Account found.")
-                user_password = input(f"Hello {user}, please enter your password: ").strip()
+                print("Success! Account exists.")
+                user_password = input(f"Hello '{user}', please enter your password: ").strip()
 
                 def login_submenu():
                     print("Options: (v)iew accounts, (e)xit")
@@ -117,7 +117,6 @@ def user_login():
                         user_password = input(f"Incorrect password. You have {count_state} attempts remaining: ")
 
                         if user_password == password:
-                            print(f"You are logged in as: {user}.\nOptions: (v)iew accounts, (e)xit.")
                             login_submenu()
 
                         elif count == 3:
@@ -139,8 +138,7 @@ def view_accounts():
             count += 1
             user, password = accounts.strip().split(",")
             print(user)
-        print(f"\nQuery complete: {count} accounts found.\n")
-
+            print(f"\nQuery complete: {count} accounts found.\n")
 
 def user_help():
     with open("assets/help.txt", "r", encoding="utf-8") as helpfile:
