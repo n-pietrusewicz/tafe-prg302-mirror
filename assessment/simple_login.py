@@ -6,6 +6,8 @@ from os import system, name
 from string import punctuation
 from time import sleep
 import re
+from secrets import choice
+from passwd_module import password_gen
 
 # Declare constant for punctuation symbols and use escape characters for any conflicting symbols
 ESCAPED_SYMBOLS = re.escape(punctuation)
@@ -20,58 +22,74 @@ def clear_screen():
     system('cls' if name == 'nt' else 'clear')
 
 
+def password_creation():
+    while True:
+            password_choice = input("Enter a password: ").strip()
+            if len(password_choice) < 8:
+                print("Your password must be longer than 8 characters. Please try again.\n")
+            elif not PATTERN_CHARS.search(password_choice):
+                print("Your password does not contain any uppercase characters. Please try again.")
+            elif not PATTERN_NUM.search(password_choice):
+                print("Your password does not contain any numbers. Please try again.")
+            
+            else:
+                print("Password meets all requirements.")
+                return password_choice
+
+
 def create_account():
-    username_choice = input("Enter the username you would like to use: ")
+    username_choice = input("Enter the username you would like to use: ").lower().strip()
     with open("assets/accounts.txt", 'a+', encoding="utf-8") as accounts:
         accounts.seek(0)
         
         for user_accounts in accounts:
             username, _ = user_accounts.strip().split(",")
+
             if username_choice == username:
-                print("Sorry, username not available. Please try again.\n")
+                print(f"Sorry, username '{username_choice}' not available. Please try again.\n")
                 sleep(2)
                 return
             
-        print(f"Username {username_choice} available\n")
+            elif username_choice == "":
+                print(f"Sorry, blank entries are not allowed. Please try again.\n")
+                sleep(2)
+                return
+            
+        print(f"Username '{username_choice}' is available.\n")
         print("Please enter a password.\n")
-        print("Password requirements: 8 characters minimum, at least one symbol, number and uppercase letter.")
+        submenu_option = input("Would you like to (g)enerate or (c)reate a password? ").lower().strip()
+
+        if submenu_option in ("create", "c"):
+            print("Password requirements: 8 characters minimum. At least one number and uppercase letter.")
+            registration_password = password_creation()
         
-        def password_validation():
-            while True:
-                password_choice = input("Password: ")
-                if len(password_choice) < 8:
-                    print("Your password must be longer than 8 characters. Please try again.\n")
-                elif not PATTERN_CHARS.search(password_choice):
-                    print("Your password does not contain any uppercase characters. Please try again.")
-                elif not PATTERN_NUM.search(password_choice):
-                    print("Your password does not contain any numbers. Please try again.")
-                elif not PATTERN_SYM.search(password_choice):
-                    print("Your password does not contain any special characters. Please try again.")
-                
-                else:
-                    print("Password meets all requirements.")
-                    return password_choice
-                
-        registration_password = password_validation()
+        elif submenu_option in ("gen", "generate", "g"):
+            registration_password = password_gen()
+            
+        else:
+            print(f"Invalid option: '{submenu_option}'\n")
+            return create_account()
+
+        
         print("Writing...")
         print("Account creation successful.")
-        print(f"Username: {username_choice}\nPassword: {registration_password}")
+        print(f"Username: {username_choice}\nPassword: {registration_password}\n")
         accounts.write(f"{username_choice},{registration_password}\n")
 
 
 def user_login():
-    user_option = input("Enter your username: ").lower()
+    user_option = input("Enter your username: ").lower().strip()
     print("Searching...")
     with open("assets/accounts.txt", "r", encoding="utf-8") as user_accounts:
         for accounts in user_accounts:
             user, password = accounts.strip().split(",")
             if user == user_option:
                 print("Account found.")
-                user_password = input(f"Hello {user}, please enter your password: ")
+                user_password = input(f"Hello {user}, please enter your password: ").strip()
 
                 def login_submenu():
                     print("Options: (v)iew accounts, (e)xit")
-                    submenu_option = input("Enter an option: ")
+                    submenu_option = input("Enter an option: ").lower().strip()
 
                     if submenu_option in ("v", "view"):
                         view_accounts()
@@ -121,8 +139,7 @@ def view_accounts():
             count += 1
             user, password = accounts.strip().split(",")
             print(user)
-        print("\nDone.")
-        print(f"Query complete: {count} accounts found.\n")
+        print(f"\nQuery complete: {count} accounts found.\n")
 
 
 def user_help():
@@ -137,7 +154,7 @@ def main_menu():
     while option != "e":
         print("Gelos Simple Login\n")
         print("Options: (c)reate user account, (l)ogin, (h)elp and (e)xit. To view accounts, please log in.")
-        option = input("Please select an option: ").lower()
+        option = input("Please select an option: ").lower().strip()
 
         if option in ("c", "create"):
             create_account()
