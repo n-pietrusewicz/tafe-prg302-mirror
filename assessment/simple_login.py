@@ -16,6 +16,7 @@ ESCAPED_SYMBOLS = re.escape(punctuation)
 PATTERN_CHARS = re.compile(r'[A-Z]')
 PATTERN_NUM = re.compile(r'\d')
 PATTERN_SYM = re.compile(fr'[{ESCAPED_SYMBOLS}]')
+MAX_ATTEMPTS = 4
 
 # Clears the terminal
 def clear_screen(): 
@@ -77,6 +78,25 @@ def create_account():
         accounts.write(f"{username_choice},{registration_password}\n")
 
 
+def login_submenu():
+    print("Options: (v)iew accounts, (e)xit")
+    submenu_option = input("Enter an option: ").lower().strip()
+
+    if submenu_option in ("v", "view"):
+        view_accounts()
+        return login_submenu()
+    
+    elif submenu_option in ("e", "exit"):
+        print("Exiting to main menu...")
+        sleep(2)
+        clear_screen()
+        return main_menu()
+    
+    else:
+        print(f"Invalid option: '{submenu_option}'\n")
+        return login_submenu()
+
+
 def user_login():
     user_option = input("Enter your username: ").lower().strip()
     print("Searching...")
@@ -86,35 +106,17 @@ def user_login():
             if user == user_option:
                 print("Success! Account exists.")
                 user_password = input(f"Hello '{user}', please enter your password: ").strip()
-
-                def login_submenu():
-                    print("Options: (v)iew accounts, (e)xit")
-                    submenu_option = input("Enter an option: ").lower().strip()
-
-                    if submenu_option in ("v", "view"):
-                        view_accounts()
-                        return login_submenu()
-                    elif submenu_option in ("e", "exit"):
-                        print("Exiting to main menu...")
-                        sleep(2)
-                        clear_screen()
-                        return main_menu()
-                    
-                    else:
-                        print(f"Invalid option: '{submenu_option}'\n")
-                        return login_submenu()
                 if password == user_password:
                     print(f"You are logged in as: {user}.")
                     login_submenu()
+                
                 if password != user_password:
                     print("Incorrect password. Please try again.")
                     
                     count = 0
-                    count_state = 4
                     while count < 3:
                         count += 1
-                        count_state -= 1
-                        user_password = input(f"Incorrect password. You have {count_state} attempts remaining: ")
+                        user_password = input(f"Incorrect password. You have {MAX_ATTEMPTS-count} attempts remaining: ")
 
                         if user_password == password:
                             login_submenu()
@@ -138,7 +140,8 @@ def view_accounts():
             count += 1
             user, password = accounts.strip().split(",")
             print(user)
-            print(f"\nQuery complete: {count} accounts found.\n")
+        print(f"\nQuery complete: {count} accounts found.\n")
+
 
 def user_help():
     with open("assets/help.txt", "r", encoding="utf-8") as helpfile:
