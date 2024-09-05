@@ -15,23 +15,25 @@ PATTERN_SYM = compile(fr'[{ESCAPED_SYMBOLS}]')
 MAX_ATTEMPTS = 4
 
 # Clears the terminal
-def clear_screen(): 
+
+
+def clear_screen():
     system('cls' if name == 'nt' else 'clear')
 
 
 def password_creation():
     while True:
-            password_choice = input("Enter a password: ").strip()
-            if len(password_choice) < 8:
-                print("Your password must be longer than 8 characters. Please try again.\n")
-            elif not PATTERN_CHARS.search(password_choice):
-                print("Your password does not contain any uppercase characters. Please try again.")
-            elif not PATTERN_NUM.search(password_choice):
-                print("Your password does not contain any numbers. Please try again.")
+        password_choice = input("Enter a password: ").strip()
+        if len(password_choice) < 8:
+            print("Your password must be longer than 8 characters. Please try again.\n")
+        elif not PATTERN_CHARS.search(password_choice):
+            print("Your password does not contain any uppercase characters. Please try again.")
+        elif not PATTERN_NUM.search(password_choice):
+            print("Your password does not contain any numbers. Please try again.")
             
-            else:
-                print("Password meets all requirements.")
-                return password_choice
+        else:
+            print("Password meets all requirements.")
+            return password_choice
 
 
 def login_submenu():
@@ -86,7 +88,6 @@ def create_account():
             print(f"Invalid option: '{submenu_option}'\n")
             return create_account()
 
-        
         print("Writing...")
         print("Account creation successful.\n")
         print(f"Username: {username_choice}\nPassword: {registration_password}\n")
@@ -111,7 +112,8 @@ def user_login():
                     count = 0
                     while count < 3:
                         count += 1
-                        user_password = input(f"Incorrect password. You have {MAX_ATTEMPTS - count} attempts remaining: ")
+                        user_password = input(f"Incorrect password. "
+                                              f"You have {MAX_ATTEMPTS - count} attempts remaining: ")
 
                         if user_password == password:
                             print(f"\nYou are logged in as: {username}.")
@@ -167,7 +169,6 @@ def main_menu():
             print("Error: You need to be logged in to view accounts.\n")
             sleep(1.5)
             clear_screen()
-
 
         elif option in ("h", "help", "?"):
             user_help()

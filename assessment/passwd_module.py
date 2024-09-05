@@ -12,11 +12,11 @@ def password_gen():
             
             option = input("Would you like special characters? (y)es/(n)o: ").lower().strip()
             if option in ("y", "yes"):
-                generated_password = ''.join(choice(ALL_CHARS) for i in range(user_choice))
+                generated_password = ''.join(choice(ALL_CHARS) for _ in range(user_choice))
                 return generated_password
            
             elif option in ("n", "no"):
-                generated_password = ''.join(choice(NO_SPECIAL_CHARS) for i in range(user_choice))
+                generated_password = ''.join(choice(NO_SPECIAL_CHARS) for _ in range(user_choice))
                 return generated_password
         else:
             print("Sorry! Length must be between 8 and 512.")
