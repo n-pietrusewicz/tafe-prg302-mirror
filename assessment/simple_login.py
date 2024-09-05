@@ -16,8 +16,6 @@ PATTERN_NUM = re.compile(r'\d')
 PATTERN_SYM = re.compile(fr'[{ESCAPED_SYMBOLS}]')
 
 # Clears the terminal
-
-
 def clear_screen(): 
     system('cls' if name == 'nt' else 'clear')
 
@@ -120,7 +118,6 @@ def view_accounts():
             print(user)
         print("\nDone.")
         print(f"Query complete: {count} accounts found.")
-        return
 
 
 def user_help():
@@ -128,7 +125,6 @@ def user_help():
         for lines in helpfile:
             print(lines.strip())
         print()
-        return
 
 
 def main_menu():
