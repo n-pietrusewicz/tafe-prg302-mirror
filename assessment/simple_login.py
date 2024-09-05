@@ -7,7 +7,8 @@ from time import sleep
 import re
 
 # Clears the terminal
-system('cls' if name == 'nt' else 'clear')
+def clear_screen(): 
+    system('cls' if name == 'nt' else 'clear')
 
 escaped_symbols = re.escape(punctuation)
 
@@ -52,7 +53,41 @@ def create_account():
 
 
 def user_login():
-    print("Login\n")
+    user_option = input("Enter your username: ").lower()
+    print("Searching...")
+    with open("assets/accounts.txt", "r") as user_accounts:
+        for accounts in user_accounts:
+            user, password = accounts.strip().split(",")
+            if user == user_option:
+                print("Username found.")
+                user_password = input(f"Hello {user_option}, please enter your password: ")
+                if user_password == password:
+                    print("Login successful.\nOptions: (v)iew accounts, (e)xit.")
+                    user_option = input("Enter an option: ")
+
+                    if user_option in ("v", "view"):
+                        view_accounts()
+                    elif user_option in ("e", "exit"):
+                        return
+                    else:
+                        print(f"Invalid option: '{option}'")
+
+                elif password != user_password:
+                    print("Incorrect password.")
+                    
+                    count = 0
+                    while count < 3:
+                        user_password = input(f"Password: ")
+                        count += 1
+
+                        if user_password == password:
+                            user_option = input("Login successful")
+
+                        elif count == 3:
+                            sleep(2)
+                            print("Sorry, please try again.\n")
+                            return
+        print(f"Error: User {user_option} not found.")
 
 
 def view_accounts():
@@ -65,26 +100,33 @@ def user_help():
 
 option = ""
 while option != "e":
+    clear_screen()
     print("Login program\n"
-          "(c)reate user account, (l)ogin, (v)iew accounts, (h)elp and (e)xit")
+          "(c)reate user account, (l)ogin, (h)elp and (e)xit")
     option = input("Please select an option: ").lower()
 
-    if option == "c":
+    if option in ("c", "create"):
         create_account()
 
-    elif option == "l":
+    elif option in ("l", "login"):
         user_login()
 
-    elif option == "v":
-        view_accounts()
+    elif option in ("v", "view"):
+        print("You need to be logged in to view accounts.\n")
+
     
     elif option in ("h", "help", "?"):
         user_help()
     
-    elif option == "e":
+    elif option in ("e", "exit"):
         print("Exiting...")
+        sleep(2)
+        exit()
     
     else:
         print(f"Invalid option: '{option}'")
         print("Type 'help' for more information.\n")
+        sleep(1)
+        clear_screen()
+
  
