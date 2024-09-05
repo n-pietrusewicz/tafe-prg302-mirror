@@ -2,7 +2,7 @@
 | Option |              Function                                    |
 +--------+----------------------------------------------------------+
 | c      | Runs the user creation function.                         |
-| v      | Views all currently registered users. (Requires login).  |
+| v      | Views all currently registered users (requires login).   |
 | h      | Prints this menu.                                        |
 | e      | Exits to shell prompt.                                   |
 +--------+----------------------------------------------------------+
