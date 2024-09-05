@@ -6,9 +6,13 @@ from string import punctuation
 from time import sleep
 import re
 
+
 # Clears the terminal
 def clear_screen(): 
     system('cls' if name == 'nt' else 'clear')
+
+
+clear_screen()
 
 escaped_symbols = re.escape(punctuation)
 
@@ -16,9 +20,10 @@ PATTERN_CHARS = re.compile(r'[A-Z]')
 PATTERN_NUM = re.compile(r'\d')
 PATTERN_SYM = re.compile(fr'[{escaped_symbols}]')
 
+
 def create_account():
     username_choice = input("Enter the username you would like to use: ")
-    with open("accounts.txt", 'a+') as accounts:
+    with open("accounts.txt", 'a+', encoding="utf-8") as accounts:
         accounts.seek(0)
         
         for user_accounts in accounts:
@@ -45,17 +50,18 @@ def create_account():
                     print("Your password does not contain any special characters. Please try again.")
                 
                 else:
+                    print("Password meets all requirements.")
                     return password_choice
                 
-        password_choice = password_validation()
+        registration_password = password_validation()
         print("Writing...")
-        accounts.write(f"{username_choice},{password_choice}\n")
+        accounts.write(f"{username_choice},{registration_password}\n")
 
 
 def user_login():
     user_option = input("Enter your username: ").lower()
     print("Searching...")
-    with open("assets/accounts.txt", "r") as user_accounts:
+    with open("accounts.txt", "r", encoding="utf-8") as user_accounts:
         for accounts in user_accounts:
             user, password = accounts.strip().split(",")
             if user == user_option:
@@ -67,6 +73,7 @@ def user_login():
 
                     if user_option in ("v", "view"):
                         view_accounts()
+                        return
                     elif user_option in ("e", "exit"):
                         return
                     else:
@@ -91,7 +98,10 @@ def user_login():
 
 
 def view_accounts():
-    print("View accounts\n")
+    with open("assets/accounts.txt", 'r', encoding="utf-8") as user_accounts:
+        for accounts in user_accounts:
+            user, password = accounts.strip().split(",")
+            print(user)
 
 
 def user_help():
@@ -100,7 +110,6 @@ def user_help():
 
 option = ""
 while option != "e":
-    clear_screen()
     print("Login program\n"
           "(c)reate user account, (l)ogin, (h)elp and (e)xit")
     option = input("Please select an option: ").lower()
@@ -114,7 +123,6 @@ while option != "e":
     elif option in ("v", "view"):
         print("You need to be logged in to view accounts.\n")
 
-    
     elif option in ("h", "help", "?"):
         user_help()
     
@@ -128,5 +136,3 @@ while option != "e":
         print("Type 'help' for more information.\n")
         sleep(1)
         clear_screen()
-
- 
