@@ -7,7 +7,7 @@ from string import punctuation
 from time import sleep
 import re
 
-# Decalre constant for punctuation symbols and use escape characters for any conflicting symbols
+# Declare constant for punctuation symbols and use escape characters for any conflicting symbols
 ESCAPED_SYMBOLS = re.escape(punctuation)
 
 # Declaring constants for password string validation and compile regex search operators.
