@@ -6,16 +6,17 @@ from string import punctuation
 from time import sleep
 import re
 
+# Decalre constant for punctuation symbols and use escape characters for any conflicting symbols
+ESCAPED_SYMBOLS = re.escape(punctuation)
+
+# Declaring constants for password string validation and compile regex search operators.
+PATTERN_CHARS = re.compile(r'[A-Z]')
+PATTERN_NUM = re.compile(r'\d')
+PATTERN_SYM = re.compile(fr'[{ESCAPED_SYMBOLS}]')
 
 # Clears the terminal
 def clear_screen(): 
     system('cls' if name == 'nt' else 'clear')
-
-ESCAPED_SYMBOLS = re.escape(punctuation)
-
-PATTERN_CHARS = re.compile(r'[A-Z]')
-PATTERN_NUM = re.compile(r'\d')
-PATTERN_SYM = re.compile(fr'[{ESCAPED_SYMBOLS}]')
 
 
 def create_account():
@@ -126,6 +127,7 @@ def user_help():
             print(lines.strip())
         print()
         return
+
 
 def main_menu():
     option = ""
