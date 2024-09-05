@@ -1,2 +1,3 @@
 # TAFE Python Programming Unit
-This repo is also mirrored on [GitHub](https://github.com/n-pietrusewicz/tafe-prg302-mirror).
+[Main](https://git.piet.cc/nick/tafe-prg302).
+[Mirror](https://github.com/n-pietrusewicz/tafe-prg302-mirror).
