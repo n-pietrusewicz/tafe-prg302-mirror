@@ -14,11 +14,11 @@ def clear_screen():
 
 clear_screen()
 
-escaped_symbols = re.escape(punctuation)
+ESCAPED_SYMBOLS = re.escape(punctuation)
 
 PATTERN_CHARS = re.compile(r'[A-Z]')
 PATTERN_NUM = re.compile(r'\d')
-PATTERN_SYM = re.compile(fr'[{escaped_symbols}]')
+PATTERN_SYM = re.compile(fr'[{ESCAPED_SYMBOLS}]')
 
 
 def create_account():
@@ -102,10 +102,15 @@ def view_accounts():
         for accounts in user_accounts:
             user, password = accounts.strip().split(",")
             print(user)
+        print("\nDone.")
+        #   add: add number of accounts found.
 
 
 def user_help():
-    print("Help\n")
+    with open("assets/help.txt", "r", encoding="utf-8") as helpfile:
+        for lines in helpfile:
+            print(lines.strip())
+        print()
 
 
 option = ""
