@@ -4,18 +4,14 @@
 
 from os import system, name
 from string import punctuation
-from time import sleep
-import re
-from secrets import choice
+from time import sleep, time
+from re import compile, escape
 from passwd_module import password_gen
 
-# Declare constant for punctuation symbols and use escape characters for any conflicting symbols
-ESCAPED_SYMBOLS = re.escape(punctuation)
-
-# Declaring constants for password string validation and compile regex search operators.
-PATTERN_CHARS = re.compile(r'[A-Z]')
-PATTERN_NUM = re.compile(r'\d')
-PATTERN_SYM = re.compile(fr'[{ESCAPED_SYMBOLS}]')
+ESCAPED_SYMBOLS = escape(punctuation)
+PATTERN_CHARS = compile(r'[A-Z]')
+PATTERN_NUM = compile(r'\d')
+PATTERN_SYM = compile(fr'[{ESCAPED_SYMBOLS}]')
 MAX_ATTEMPTS = 4
 
 # Clears the terminal
@@ -38,8 +34,27 @@ def password_creation():
                 return password_choice
 
 
+def login_submenu():
+    print("Options: (v)iew accounts, (e)xit")
+    submenu_option = input("Enter an option: ").lower().strip()
+
+    if submenu_option in ("v", "view"):
+        view_accounts()
+        return login_submenu()
+    
+    elif submenu_option in ("e", "exit"):
+        print("Exiting to main menu...")
+        sleep(2)
+        clear_screen()
+        return main_menu()
+    
+    else:
+        print(f"Invalid option: '{submenu_option}'\n")
+        return login_submenu()
+    
+
 def create_account():
-    username_choice = input("Enter the username you would like to use: ").lower().strip()
+    username_choice = input("Enter the username you would like to use: ").lower().replace(" ", "_")
     with open("assets/accounts.txt", 'a+', encoding="utf-8") as accounts:
         accounts.seek(0)
         
@@ -73,52 +88,33 @@ def create_account():
 
         
         print("Writing...")
-        print("Account creation successful.")
+        print("Account creation successful.\n")
         print(f"Username: {username_choice}\nPassword: {registration_password}\n")
         accounts.write(f"{username_choice},{registration_password}\n")
 
 
-def login_submenu():
-    print("Options: (v)iew accounts, (e)xit")
-    submenu_option = input("Enter an option: ").lower().strip()
-
-    if submenu_option in ("v", "view"):
-        view_accounts()
-        return login_submenu()
-    
-    elif submenu_option in ("e", "exit"):
-        print("Exiting to main menu...")
-        sleep(2)
-        clear_screen()
-        return main_menu()
-    
-    else:
-        print(f"Invalid option: '{submenu_option}'\n")
-        return login_submenu()
-
-
 def user_login():
-    user_option = input("Enter your username: ").lower().strip()
+    user_option = input("Enter your username: ").lower().replace(" ", "_")
     print("Searching...")
     with open("assets/accounts.txt", "r", encoding="utf-8") as user_accounts:
         for accounts in user_accounts:
-            user, password = accounts.strip().split(",")
-            if user == user_option:
+            username, password = accounts.strip().split(",")
+            if username == user_option:
                 print("Success! Account exists.")
-                user_password = input(f"Hello '{user}', please enter your password: ").strip()
+                user_password = input(f"Hello '{username}', please enter your password: ").strip()
                 if password == user_password:
-                    print(f"You are logged in as: {user}.")
+                    print(f"\nYou are logged in as: {username}.")
                     login_submenu()
                 
-                if password != user_password:
-                    print("Incorrect password. Please try again.")
-                    
+                elif password != user_password:
+                    # print("Incorrect password. Please try again.")
                     count = 0
                     while count < 3:
                         count += 1
-                        user_password = input(f"Incorrect password. You have {MAX_ATTEMPTS-count} attempts remaining: ")
+                        user_password = input(f"Incorrect password. You have {MAX_ATTEMPTS - count} attempts remaining: ")
 
                         if user_password == password:
+                            print(f"\nYou are logged in as: {username}.")
                             login_submenu()
 
                         elif count == 3:
@@ -126,8 +122,8 @@ def user_login():
                             print("Sorry, please try again.\n")
                             return
                         
-        if user != user_option:
-            print(f"Error: User {user_option} not found.\n")
+        if username != user_option:
+            print(f"Error: User '{user_option}' not found.\n")
             sleep(2)
             clear_screen()
             return
@@ -135,12 +131,16 @@ def user_login():
 
 def view_accounts():
     count = 0
+    start_time = time()
     with open("assets/accounts.txt", 'r', encoding="utf-8") as user_accounts:
         for accounts in user_accounts:
             count += 1
-            user, password = accounts.strip().split(",")
-            print(user)
-        print(f"\nQuery complete: {count} accounts found.\n")
+            username, _ = accounts.strip().split(",")
+            print(username)
+        end_time = time()
+        exec_time = end_time - start_time
+        print(f"\nQuery complete: {count} accounts found.")
+        print(f"Execution took {exec_time:.3f}s\n")
 
 
 def user_help():
@@ -165,6 +165,9 @@ def main_menu():
 
         elif option in ("v", "view"):
             print("Error: You need to be logged in to view accounts.\n")
+            sleep(1.5)
+            clear_screen()
+
 
         elif option in ("h", "help", "?"):
             user_help()
