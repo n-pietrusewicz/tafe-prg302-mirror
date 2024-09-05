@@ -70,19 +70,23 @@ def user_login():
                 user_password = input(f"Hello {user}, please enter your password: ")
 
                 def login_submenu():
-                    print(f"You are logged in as: {user}.\nOptions: (v)iew accounts, (e)xit.")
+                    print("Options: (v)iew accounts, (e)xit")
                     submenu_option = input("Enter an option: ")
 
                     if submenu_option in ("v", "view"):
                         view_accounts()
-                        print()
                         return login_submenu()
                     elif submenu_option in ("e", "exit"):
-                        print()
+                        print("Exiting to main menu...")
+                        sleep(2)
+                        clear_screen()
                         return main_menu()
+                    
                     else:
-                        print(f"Invalid option: '{user_option}'")
+                        print(f"Invalid option: '{submenu_option}'\n")
+                        return login_submenu()
                 if password == user_password:
+                    print(f"You are logged in as: {user}.")
                     login_submenu()
                 if password != user_password:
                     print("Incorrect password. Please try again.")
@@ -95,6 +99,7 @@ def user_login():
                         user_password = input(f"Incorrect password. You have {count_state} attempts remaining: ")
 
                         if user_password == password:
+                            print(f"You are logged in as: {user}.\nOptions: (v)iew accounts, (e)xit.")
                             login_submenu()
 
                         elif count == 3:
@@ -117,7 +122,7 @@ def view_accounts():
             user, password = accounts.strip().split(",")
             print(user)
         print("\nDone.")
-        print(f"Query complete: {count} accounts found.")
+        print(f"Query complete: {count} accounts found.\n")
 
 
 def user_help():
@@ -149,6 +154,7 @@ def main_menu():
         elif option in ("e", "exit"):
             print("Exiting...")
             sleep(2)
+            clear_screen()
             exit()
         
         else:
