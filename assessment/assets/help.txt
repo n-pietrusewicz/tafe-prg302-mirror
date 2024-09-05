@@ -6,3 +6,8 @@
 | h      | Prints this menu.                                        |
 | e      | Exits to shell prompt.                                   |
 +--------+----------------------------------------------------------+
+
+About:
+
+This program was created by Nicholas Piet.
+Version 1.0 
