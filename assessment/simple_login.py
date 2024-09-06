@@ -9,14 +9,14 @@ from re import compile, escape
 from passwd_module import password_gen
 
 ESCAPED_SYMBOLS = escape(punctuation)
-PATTERN_CHARS = compile(r'[A-Z]')
-PATTERN_NUM = compile(r'\d')
-PATTERN_SYM = compile(fr'[{ESCAPED_SYMBOLS}]')
+PATTERN_CHARS = compile(r"[A-Z]")
+PATTERN_NUM = compile(r"\d")
+PATTERN_SYM = compile(fr"[{ESCAPED_SYMBOLS}]")
 MAX_ATTEMPTS = 4
 
 
 def clear_screen():
-    system('cls' if name == 'nt' else 'clear')
+    system("cls" if name == "nt" else "clear")
 
 
 def password_creation():
@@ -53,7 +53,7 @@ def login_submenu():
 
 def create_account():
     username_choice = input("Enter the username you would like to use: ").lower().replace(" ", "_")
-    with open("assets/accounts.txt", 'a+', encoding="utf-8") as accounts:
+    with open("assets/accounts.txt", "a+", encoding="utf-8") as accounts:
         accounts.seek(0)
         for user_accounts in accounts:
             username, _ = user_accounts.strip().split(",")
@@ -134,7 +134,7 @@ def user_login():
 def view_accounts():
     count = 0
     start_time = time()
-    with open("assets/accounts.txt", 'r', encoding="utf-8") as user_accounts:
+    with open("assets/accounts.txt", "r", encoding="utf-8") as user_accounts:
         for accounts in user_accounts:
             count += 1
             username, _ = accounts.strip().split(",")
