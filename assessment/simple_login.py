@@ -26,9 +26,9 @@ def password_creation():
         if len(password_choice) < 8:
             print("Your password must be longer than 8 characters. Please try again.\n")
         elif not PATTERN_CHARS.search(password_choice):
-            print("Your password does not contain any uppercase characters. Please try again.")
+            print("Your password does not contain any uppercase characters. Please try again.\n")
         elif not PATTERN_NUM.search(password_choice):
-            print("Your password does not contain any numbers. Please try again.")  
+            print("Your password does not contain any numbers. Please try again.\n")  
         else:
             print("Password meets all requirements.")
             return password_choice
@@ -59,23 +59,32 @@ def create_account():
             username, _ = user_accounts.strip().split(",")
             
             if username_choice == username:
-                print(f"Sorry, username '{username_choice}' not available. Please try again.\n")
+                print(f"Sorry, the username '{username_choice}' is not available. Please try again.\n")
                 sleep(2)
+                clear_screen()
                 return            
             elif username_choice == "":
                 print(f"Sorry, blank entries are not allowed. Please try again.\n")
                 sleep(2)
+                clear_screen()
                 return
             
-        print(f"Username '{username_choice}' is available.\n")
+        print(f"Username '{username_choice}' is available.")
         print("Please enter a password.\n")
-        submenu_option = input("Would you like to (g)enerate or (c)reate a password? ").lower().strip()
+        submenu_option = input("Please choose an option:\n"
+                                "(g)enerate a new password (automatically) or,\n"
+                                "(c)reate a password\n"
+                                "Type 'cancel' to return to the main menu: ").lower().strip()
 
         if submenu_option in ("create", "c"):
-            print("Password requirements: 8 characters minimum. At least one number and uppercase letter.")
+            print("Password requirements: 8 characters minimum and "
+                  "at least one number and uppercase letter.")
             registration_password = password_creation()       
         elif submenu_option in ("gen", "generate", "g"):
-            registration_password = password_gen()            
+            registration_password = password_gen()  
+        elif submenu_option in ("cancel", "exit"):
+            clear_screen()
+            return          
         else:
             print(f"Invalid option: '{submenu_option}'\n")
             return create_account()
@@ -147,7 +156,8 @@ def main_menu():
     option = ""
     while option != "e":
         print("Gelos Simple Login\n")
-        print("Options: (c)reate user account, (l)ogin, (h)elp and (e)xit. To view accounts, please log in.")
+        print("Options: (c)reate account, (l)ogin and (e)xit.\n"
+              "To view accounts, please log in.\n")
         option = input("Please select an option: ").lower().strip()
 
         if option in ("c", "create"):
@@ -170,7 +180,6 @@ def main_menu():
             print("Type 'help' for more information.\n")
             sleep(2)
             clear_screen()
-
 
 clear_screen()
 main_menu()

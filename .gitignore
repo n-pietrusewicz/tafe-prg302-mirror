@@ -1,8 +1,14 @@
 __pycache__/
 *.pyc
 *.pyo
+
 .vscode/
 .idea/
 *.swp
+
 .DS_Store
 Thumbs.db
+
+# misc files
+temp/
+old_files/
