@@ -55,9 +55,9 @@ def create_account():
     username_choice = input("Enter the username you would like to use: ").lower().replace(" ", "_")
     with open("assets/accounts.txt", 'a+', encoding="utf-8") as accounts:
         accounts.seek(0)
-        
         for user_accounts in accounts:
             username, _ = user_accounts.strip().split(",")
+            
             if username_choice == username:
                 print(f"Sorry, username '{username_choice}' not available. Please try again.\n")
                 sleep(2)
@@ -95,7 +95,7 @@ def user_login():
             
             if username == user_option:
                 print("Success! Account exists.")
-                user_password = input(f"Hello '{username}', please enter your password: ").strip()
+                user_password = input(f"Please enter your password: ").strip()
                 if password == user_password:
                     print(f"\nYou are logged in as: {username}.")
                     login_submenu()        
