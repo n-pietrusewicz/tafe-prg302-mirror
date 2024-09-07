@@ -87,7 +87,7 @@ def create_account():
             return          
         else:
             print(f"Invalid option: '{submenu_option}'\n")
-            return create_account()
+            return main_menu()
 
         print("Writing...")
         print("Account creation successful.\n")
