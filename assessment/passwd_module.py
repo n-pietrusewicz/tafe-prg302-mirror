@@ -1,3 +1,4 @@
+from random import shuffle
 from secrets import choice
 from string import ascii_uppercase, ascii_lowercase, digits, punctuation
 
@@ -14,12 +15,15 @@ def password_gen():
                 
                 option = input("Would you like special characters? (y)es/(n)o: ").lower().strip()
                 if option in ("y", "yes"):
-                    generated_password = ''.join(choice(ALL_CHARS) for _ in range(user_choice))
-                    return generated_password
-            
+                    generated_password = [choice(ascii_uppercase)]
+                    generated_password += [choice(ALL_CHARS) for _ in range(user_choice - 1)]
+                                
                 elif option in ("n", "no"):
-                    generated_password = ''.join(choice(NO_SPECIAL_CHARS) for _ in range(user_choice))
-                    return generated_password
+                    generated_password = [choice(ascii_uppercase)]
+                    generated_password += [choice(NO_SPECIAL_CHARS) for _ in range(user_choice - 1)]
+                shuffle(generated_password)
+                generated_password = ''.join(generated_password)
+                return generated_password
             else:
                 print("Sorry! Length must be between 8 and 512.")
         except ValueError:
