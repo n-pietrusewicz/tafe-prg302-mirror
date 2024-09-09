@@ -2,17 +2,14 @@
 # TAFE - Unit ICTPRG302 - Task 2
 # Login Script
 
-from sys import exit
+import sys
 from os import system, name
-from string import punctuation
 from time import sleep, time
-from re import compile, escape
+from re import compile as re_compile
 from passwd_module import password_gen
 
-ESCAPED_SYMBOLS = escape(punctuation)
-PATTERN_CHARS = compile(r"[A-Z]")
-PATTERN_NUM = compile(r"\d")
-PATTERN_SYM = compile(fr"[{ESCAPED_SYMBOLS}]")
+PATTERN_CHARS = re_compile(r"[A-Z]")
+PATTERN_NUM = re_compile(r"\d")
 MAX_ATTEMPTS = 4
 
 
@@ -23,13 +20,13 @@ def clear_screen():
 def password_creation():
     while True:
         password_choice = input("Enter a password: ").strip()
-        
+
         if len(password_choice) < 8:
             print("Your password must be longer than 8 characters. Please try again.\n")
         elif not PATTERN_CHARS.search(password_choice):
             print("Your password does not contain any uppercase characters. Please try again.\n")
         elif not PATTERN_NUM.search(password_choice):
-            print("Your password does not contain any numbers. Please try again.\n")  
+            print("Your password does not contain any numbers. Please try again.\n")
         else:
             print("Password meets all requirements.")
             return password_choice
@@ -38,7 +35,7 @@ def password_creation():
 def login_submenu():
     print("Options: (v)iew accounts, (e)xit")
     submenu_option = input("Enter an option: ").lower().strip()
-    
+
     if submenu_option in ("v", "view"):
         view_accounts()
         return login_submenu()
@@ -46,11 +43,11 @@ def login_submenu():
         print("Exiting to main menu...")
         sleep(2)
         clear_screen()
-        return main_menu() 
+        return main_menu()
     else:
         print(f"Invalid option: '{submenu_option}'\n")
         return login_submenu()
-    
+
 
 def create_account():
     username_choice = input("Enter the username you would like to use: ").lower().replace(" ", "_")
@@ -58,34 +55,35 @@ def create_account():
         accounts.seek(0)
         for user_accounts in accounts:
             username, _ = user_accounts.strip().split(",")
-            
+
             if username_choice == username:
-                print(f"Sorry, the username '{username_choice}' is not available. Please try again.\n")
-                sleep(2)
-                clear_screen()
-                return            
-            elif username_choice == "":
-                print(f"Sorry, blank entries are not allowed. Please try again.\n")
+                print(f"Sorry, the username '{username_choice}' is not available. "
+                      "Please try again.\n")
                 sleep(2)
                 clear_screen()
                 return
-            
+            elif username_choice == "":
+                print("Sorry, blank entries are not allowed. Please try again.\n")
+                sleep(2)
+                clear_screen()
+                return
+
         print(f"Username '{username_choice}' is available.")
         print("Please enter a password.\n")
         submenu_option = input("Please choose an option:\n"
-                                "(g)enerate a new password (automatically) or,\n"
-                                "(c)reate a password\n"
-                                "Type 'cancel' to return to the main menu: ").lower().strip()
+                               "(g)enerate a new password (automatically) or,\n"
+                               "(c)reate a password\n"
+                               "Type 'cancel' to return to the main menu: ").lower().strip()
 
         if submenu_option in ("create", "c"):
             print("Password requirements: 8 characters minimum and "
                   "at least one number and uppercase letter.")
-            registration_password = password_creation()       
+            registration_password = password_creation()
         elif submenu_option in ("gen", "generate", "g"):
-            registration_password = password_gen()  
+            registration_password = password_gen()
         elif submenu_option in ("cancel", "exit"):
             clear_screen()
-            return          
+            return
         else:
             print(f"Invalid option: '{submenu_option}'\n")
             return main_menu()
@@ -102,21 +100,22 @@ def user_login():
     with open("assets/accounts.txt", "r", encoding="utf-8") as user_accounts:
         for accounts in user_accounts:
             username, password = accounts.strip().split(",")
-            
+
             if username == user_option:
                 print("Success! Account exists.")
-                user_password = input(f"Please enter your password: ").strip()
+                user_password = input("Please enter your password: ").strip()
                 if password == user_password:
                     print(f"\nYou are logged in as: {username}.")
-                    login_submenu()        
-                
-                elif password != user_password:    
+                    login_submenu()
+
+                elif password != user_password:
                     count = 0
                     while count < 3:
                         count += 1
                         user_password = input(f"Incorrect password. "
-                                              f"You have {MAX_ATTEMPTS - count} attempt(s) remaining: ")
-                        
+                                              f"You have {MAX_ATTEMPTS - count}"
+                                              "attempt(s) remaining: ")
+
                         if user_password == password:
                             print(f"\nYou are logged in as: {username}.")
                             login_submenu()
@@ -125,11 +124,11 @@ def user_login():
                             sleep(2)
                             clear_screen()
                             return
-                        
+
         print(f"Error: User '{user_option}' not found.\n")
         sleep(2)
         clear_screen()
-        
+
 
 def view_accounts():
     count = 0
@@ -174,12 +173,14 @@ def main_menu():
             print("Exiting...")
             sleep(2)
             clear_screen()
-            exit()
+            sys.exit()
         else:
             print(f"Invalid option: '{option}'")
             print("Type 'help' for more information.\n")
             sleep(2)
             clear_screen()
 
+
 clear_screen()
+
 main_menu()
