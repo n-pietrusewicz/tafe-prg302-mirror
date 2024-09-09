@@ -2,6 +2,7 @@
 # TAFE - Unit ICTPRG302 - Task 2
 # Login Script
 
+from sys import exit
 from os import system, name
 from string import punctuation
 from time import sleep, time
@@ -128,8 +129,7 @@ def user_login():
         print(f"Error: User '{user_option}' not found.\n")
         sleep(2)
         clear_screen()
-        return
-
+        
 
 def view_accounts():
     count = 0
@@ -138,7 +138,7 @@ def view_accounts():
         for accounts in user_accounts:
             count += 1
             username, _ = accounts.strip().split(",")
-            print(username)
+            print(f"{count}. {username}")
         end_time = time()
         exec_time = end_time - start_time
         print(f"\nQuery complete: {count} accounts found.")
