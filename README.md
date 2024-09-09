@@ -5,8 +5,13 @@
 
 Directory structure:
     assessment - contains python script files for unit:
-         - simple_login.py
+        
+        - simple_login.py
+        
         - passwd_module.py (required for password generation)
+        
         - assets/
+            
             - help.txt - help file
+            
             - accounts.txt - account file
