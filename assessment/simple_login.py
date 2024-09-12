@@ -113,7 +113,7 @@ def user_login():
                     while count < 3:
                         count += 1
                         user_password = input(f"Incorrect password. "
-                                              f"You have {MAX_ATTEMPTS - count}"
+                                              f"You have {MAX_ATTEMPTS - count} "
                                               "attempt(s) remaining: ")
 
                         if user_password == password:
