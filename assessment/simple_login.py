@@ -137,10 +137,10 @@ def view_accounts():
         for accounts in user_accounts:
             count += 1
             username, _ = accounts.strip().split(",")
-            print(f"{username}")
+            print(f"{count}. {username}")
         end_time = time()
         exec_time = end_time - start_time
-        print(f"\nQuery complete: {count} accounts found.")
+        print("\nQuery complete.")
         print(f"Execution took {exec_time:.3f}s\n")
 
 
