@@ -76,7 +76,7 @@ def create_account():
                                "Type 'cancel' to return to the main menu: ").lower().strip()
 
         if submenu_option in ("create", "c"):
-            print("Password requirements: 8 characters minimum and "
+            print("Password requirements: 10 characters minimum and "
                   "at least one number and uppercase letter.")
             registration_password = password_creation()
         elif submenu_option in ("gen", "generate", "g"):
@@ -113,7 +113,7 @@ def user_login():
                     while count < 3:
                         count += 1
                         user_password = input(f"Incorrect password. "
-                                              f"You have {MAX_ATTEMPTS - count}"
+                                              f"You have {MAX_ATTEMPTS - count} "
                                               "attempt(s) remaining: ")
 
                         if user_password == password:
