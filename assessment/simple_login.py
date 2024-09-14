@@ -21,8 +21,8 @@ def password_creation():
     while True:
         password_choice = input("Enter a password: ").strip()
 
-        if len(password_choice) < 8:
-            print("Your password must be longer than 8 characters. Please try again.\n")
+        if len(password_choice) < 10:
+            print("Your password must be longer than 10 characters. Please try again.\n")
         elif not PATTERN_CHARS.search(password_choice):
             print("Your password does not contain any uppercase characters. Please try again.\n")
         elif not PATTERN_NUM.search(password_choice):

@@ -10,8 +10,8 @@ NO_SPECIAL_CHARS = ALPHANUMERIC + digits
 def password_gen():
     while True:
         try:
-            user_choice = int(input("Enter a password length (8-512 characters): "))
-            if 8 <= user_choice <= 512:
+            user_choice = int(input("Enter a password length (10-512 characters): "))
+            if 10 <= user_choice <= 512:
                 option = input("Would you like special characters? (y)es/(n)o: ").lower().strip()
                 if option in ("y", "yes"):
                     generated_password = [choice(ascii_uppercase)]
@@ -22,7 +22,6 @@ def password_gen():
                 shuffle(generated_password)
                 generated_password = ''.join(generated_password)
                 return generated_password
-            else:
-                print("Sorry! Length must be between 8 and 512.")
+            print("Sorry! Length must be between 10 and 512.")
         except ValueError:
             print("Error: Invalid value")
